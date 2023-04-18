@@ -1,0 +1,18 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\PGK.Application",
+    "\\PGK.Application\\App",
+    "\\PGK.Application\\App\\User",
+    "\\PGK.Application\\App\\User\\Student",
+    "\\PGK.Application\\App\\User\\Student\\Queries",
+    "\\PGK.Application\\App\\User\\Student\\Queries\\GetStudentUserList",
+    "\\PGK.Application\\Security",
+    "\\PGK.Domain",
+    "\\PGK.Domain\\TechnicalSupport",
+    "\\PGK.WebApi",
+    "\\PGK.WebApi\\Controllers"
+  ],
+  "SelectedNode": "\\PGK.Backend.sln",
+  "PreviewInSolutionExplorer": false
+}
