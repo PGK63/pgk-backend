@@ -4,7 +4,7 @@ namespace PGK.Application.App.Raportichka.Row.Commands.CreateRow
 {
     public class CreateRaportichkaRowVm
     {
-        [Required] public int Id { get; set; }
+        [Required] public List<int> Id { get; set; }
 
     }
 }

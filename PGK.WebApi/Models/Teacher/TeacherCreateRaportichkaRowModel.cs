@@ -9,6 +9,6 @@ namespace PGK.WebApi.Models.Teacher
         [Required] public int Hours { get; set; }
         [Required] public RaportichkaCause Cause { get; set; }
         [Required] public int SubjectId { get; set; }
-        [Required] public int StudentId { get; set; }
+        [Required] public List<int> StudentId { get; set; }
     }
 }

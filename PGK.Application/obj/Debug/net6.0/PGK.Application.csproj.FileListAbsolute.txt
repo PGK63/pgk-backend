@@ -57,4 +57,4 @@ C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Application\obj\Debug\net6.0\P
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Application\obj\Debug\net6.0\refint\PGK.Application.dll
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Application\obj\Debug\net6.0\PGK.Application.pdb
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Application\obj\Debug\net6.0\ref\PGK.Application.dll
-C:\Users\danbe\Desktop\PGK\PGK.Backend\PGK.Application\bin\Debug\net6.0\ref\PGK.Application.dll
+C:\Users\danbe\Desktop\PGK\PGK.Backend\PGK.Application\obj\Debug\net6.0\refint\PGK.Application.dll

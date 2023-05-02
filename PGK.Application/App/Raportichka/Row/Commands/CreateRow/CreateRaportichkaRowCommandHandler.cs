@@ -78,58 +78,71 @@ namespace PGK.Application.App.Raportichka.Row.Commands.CreateRow
                     request.SubjectId);
             }
 
-            var student = await _dbContext.StudentsUsers
-                .Include(u => u.Group)
-                .FirstOrDefaultAsync(u => u.Id == request.StudentId);
+            var studentUsers = request.StudentId.Select(u => getStudent(u, raportichka.Group.Id));
+            var rowIds = new List<int>();
 
-            if (student == null)
+            foreach (var studentUser in studentUsers)
             {
-                throw new NotFoundException(nameof(StudentUser),
-                    request.StudentId);
-            }
+                var student = await studentUser;
+                
+                var row = new RaportichkaRow
+                {
+                    NumberLesson = request.NumberLesson,
+                    Confirmation = false,
+                    Hours = request.Hours,
+                    Student = student,
+                    Subject = subject,
+                    Teacher = teacher,
+                    Raportichka = raportichka,
+                    Cause = request.Cause
+                };
 
-            if(raportichka.Group != student.Group)
-            {
-                throw new Exception("У студент и рапортички разные группы");
-            }
+                var notification = new Notification
+                {
+                    Title = "Вас отметели в рапортичке",
+                    Message = $"Преподаватель {teacher.LastName}, предмет {subject.SubjectTitle}",
+                    Users = new List<Domain.User.User> { student }
+                };
 
-            var row = new RaportichkaRow
-            {
-                NumberLesson = request.NumberLesson,
-                Confirmation = false,
-                Hours = request.Hours,
-                Student = student,
-                Subject = subject,
-                Teacher = teacher,
-                Raportichka = raportichka,
-                Cause = request.Cause
-            };
+                await _dbContext.RaportichkaRows.AddAsync(row, cancellationToken);
+                await _dbContext.Notifications.AddAsync(notification, cancellationToken);
 
-            var notification = new Notification
-            {
-                Title = "Вас отметели в рапортичке",
-                Message = $"Преподаватель {teacher.LastName}, предмет {subject.SubjectTitle}",
-                Users = new List<Domain.User.User> { student }
-            };
+                await _dbContext.SaveChangesAsync(cancellationToken);
+                rowIds.Add(row.Id);
 
-            await _dbContext.RaportichkaRows.AddAsync(row, cancellationToken);
-            await _dbContext.Notifications.AddAsync(notification, cancellationToken);
-
-            await _dbContext.SaveChangesAsync(cancellationToken);
-
-            if (student.IncludedRaportichkaNotifications)
-            {
-                await _fCMService.SendMessage(
-                    notification.Title,
-                    notification.Message,
-                    notification.Users.Last().Id.ToString()
-               );
+                if (student.IncludedRaportichkaNotifications)
+                {
+                    await _fCMService.SendMessage(
+                        notification.Title,
+                        notification.Message,
+                        notification.Users.Last().Id.ToString()
+                    );
+                }   
             }
 
             return new CreateRaportichkaRowVm
             {
-                Id = row.Id
+                Id = rowIds
             };
+        }
+
+        async Task<StudentUser> getStudent(int studentId, int groupId)
+        {
+            var student = await _dbContext.StudentsUsers
+                .Include(u => u.Group)
+                .FirstOrDefaultAsync(u => u.Id == studentId);
+            
+            if (student == null)
+            {
+                throw new NotFoundException(nameof(StudentUser), studentId);
+            }
+
+            if(groupId != student.Group.Id)
+            {
+                throw new Exception("У студент и рапортички разные группы");
+            }
+
+            return student;
         }
     }
 }

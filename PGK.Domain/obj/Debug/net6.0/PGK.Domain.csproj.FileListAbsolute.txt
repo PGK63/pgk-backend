@@ -45,4 +45,4 @@ C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Domain\obj\Debug\net6.0\PGK.Do
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Domain\obj\Debug\net6.0\refint\PGK.Domain.dll
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Domain\obj\Debug\net6.0\PGK.Domain.pdb
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Domain\obj\Debug\net6.0\ref\PGK.Domain.dll
-C:\Users\danbe\Desktop\PGK\PGK.Backend\PGK.Domain\bin\Debug\net6.0\ref\PGK.Domain.dll
+C:\Users\danbe\Desktop\PGK\PGK.Backend\PGK.Domain\obj\Debug\net6.0\refint\PGK.Domain.dll
