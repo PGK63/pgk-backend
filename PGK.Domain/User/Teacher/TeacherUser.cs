@@ -2,6 +2,7 @@
 using PGK.Domain.Raportichka;
 using PGK.Domain.Schedules;
 using System.ComponentModel.DataAnnotations.Schema;
+using PGK.Domain.User.Quide;
 
 namespace PGK.Domain.User.Teacher
 {
@@ -12,6 +13,7 @@ namespace PGK.Domain.User.Teacher
         
         public string? Cabinet { get; set; }
         public string? Information { get; set; }
+        public GuideState State { get; set; }
 
         //Классный руководитель
         public virtual List<Group.Group> Сurator { get; set; } = new List<Group.Group>();

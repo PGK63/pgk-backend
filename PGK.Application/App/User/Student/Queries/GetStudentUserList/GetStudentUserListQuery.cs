@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using PGK.Domain.User.Student;
 
 namespace PGK.Application.App.User.Student.Queries.GetStudentUserList
 {
@@ -8,6 +9,7 @@ namespace PGK.Application.App.User.Student.Queries.GetStudentUserList
         public int PageSize { get; set; }
 
         public string? Search { get; set; } = null;
+        public StudentState? State { get; set; }
         public List<int> SpecialityIds { get; set; } = new List<int>();
         public List<int> DepartmenIds { get; set; } = new List<int>();
 

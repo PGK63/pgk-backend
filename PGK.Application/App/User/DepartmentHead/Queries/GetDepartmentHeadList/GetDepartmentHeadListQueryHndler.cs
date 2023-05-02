@@ -30,6 +30,11 @@ namespace PGK.Application.App.User.DepartmentHead.Queries.GetDepartmentHeadList
                 );
             }
 
+            if (request.State != null)
+            {
+                query = query.Where(u => u.State == request.State);
+            }
+
             var departmentHead = query
                  .OrderBy(u => u.FirstName)
                 .OrderBy(u => u.LastName)

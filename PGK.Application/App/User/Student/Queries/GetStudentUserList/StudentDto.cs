@@ -13,7 +13,7 @@ namespace PGK.Application.App.User.Student.Queries.GetStudentUserList
         [Required, MaxLength(128)] public string LastName { get; set; } = string.Empty;
         [MaxLength(128)] public string? MiddleName { get; set; }
         public string? PhotoUrl { get; set; } = null;
-
+        [Required] public StudentState State { get; set; }
         [Required] public GroupDetails Group { get; set; }
 
         public void Mapping(Profile profile)

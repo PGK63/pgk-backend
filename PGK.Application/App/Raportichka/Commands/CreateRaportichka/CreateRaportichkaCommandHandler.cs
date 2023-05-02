@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using PGK.Application.Common.Exceptions;
 using PGK.Application.Interfaces;
 using PGK.Domain.User;
+using PGK.Domain.User.Quide;
 using PGK.Domain.User.Student;
+using PGK.Domain.User.Teacher;
 
 namespace PGK.Application.App.Raportichka.Commands.CreateRaportichka
 {
@@ -19,6 +21,21 @@ namespace PGK.Application.App.Raportichka.Commands.CreateRaportichka
             CancellationToken cancellationToken)
         {
             Domain.Raportichka.Raportichka? raportichka;
+
+            if (request.Role == UserRole.TEACHER)
+            {
+                var teaher = await _dbContext.TeacherUsers.FindAsync(request.UserId);
+
+                if (teaher == null)
+                {
+                    throw new NotFoundException(nameof(TeacherUser), request.UserId);
+                }
+
+                if (teaher.State == GuideState.DISMISSED)
+                {
+                    throw new UnauthorizedAccessException("Вы больше не работайте в ПГК");
+                }
+            }
 
             if (request.Role == UserRole.HEADMAN || request.Role == UserRole.DEPUTY_HEADMAN)
             {

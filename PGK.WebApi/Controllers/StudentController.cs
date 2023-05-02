@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Market.Application.App.User.Student.Commands.UpdateState;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PGK.Application.App.User.Student.Commands.Delete;
 using PGK.Application.App.User.Student.Commands.Registration;
 using PGK.Application.App.User.Student.Commands.UpdateGroup;
 using PGK.Application.App.User.Student.Queries.GetStudentUserDetails;
 using PGK.Application.App.User.Student.Queries.GetStudentUserList;
+using PGK.Domain.User.Student;
 
 namespace PGK.WebApi.Controllers
 {
@@ -26,6 +28,7 @@ namespace PGK.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentUserListVm))]
         public async Task<ActionResult> GetAll(
             string? search,
+            StudentState? state,
             [FromQuery] List<int> groupIds,
             [FromQuery] List<int> departmenIds,
             [FromQuery] List<int> specialityIds,
@@ -37,7 +40,8 @@ namespace PGK.WebApi.Controllers
                 Search = search,
                 DepartmenIds = departmenIds,
                 SpecialityIds = specialityIds,
-                GroupIds = groupIds
+                GroupIds = groupIds,
+                State = state
             };
 
             var vm = await Mediator.Send(query);
@@ -64,6 +68,24 @@ namespace PGK.WebApi.Controllers
 
             var dto = await Mediator.Send(query);
 
+            return Ok(dto);
+        }
+
+        [Authorize(Roles = "TEACHER,EDUCATIONAL_SECTOR,ADMIN")]
+        [HttpPatch("{id}/State")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentDto))]
+        public async Task<ActionResult> UpdateState(int id, StudentState state)
+        {
+            var command = new StudentUpdateStateCommand
+            {
+                StudentId = id,
+                State = state,
+                UserId = UserId,
+                Role = UserRole.Value
+            };
+        
+            var dto = await Mediator.Send(command);
+        
             return Ok(dto);
         }
 

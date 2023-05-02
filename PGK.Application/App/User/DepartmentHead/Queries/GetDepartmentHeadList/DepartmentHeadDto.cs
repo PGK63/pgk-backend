@@ -2,6 +2,7 @@
 using PGK.Application.Common.Mappings;
 using PGK.Domain.User.DepartmentHead;
 using System.ComponentModel.DataAnnotations;
+using PGK.Domain.User.Quide;
 
 namespace PGK.Application.App.User.DepartmentHead.Queries.GetDepartmentHeadList
 {
@@ -14,7 +15,8 @@ namespace PGK.Application.App.User.DepartmentHead.Queries.GetDepartmentHeadList
         public string? Cabinet { get; set; }
         public string? Information { get; set; }
         public string? PhotoUrl { get; set; } = null;
-
+        public GuideState State { get; set; }
+        
         public void Mapping(Profile profile)
         {
             profile.CreateMap<DepartmentHeadUser, DepartmentHeadDto>();

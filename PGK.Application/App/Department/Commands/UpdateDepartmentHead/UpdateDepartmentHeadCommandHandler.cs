@@ -2,6 +2,7 @@
 using PGK.Application.Interfaces;
 using PGK.Application.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using PGK.Domain.User.Quide;
 
 namespace PGK.Application.App.Department.Commands.UpdateDepartmentHead
 {
@@ -24,6 +25,8 @@ namespace PGK.Application.App.Department.Commands.UpdateDepartmentHead
             {
                 throw new NotFoundException(nameof(Domain.Department.Department), request.DepartmentId);
             }
+
+            department.DepartmentHead.State = GuideState.DISMISSED;
 
             var departmentHead = await _dbContext.DepartmentHeadUsers.FindAsync(request.DepartmentHeadId);
         

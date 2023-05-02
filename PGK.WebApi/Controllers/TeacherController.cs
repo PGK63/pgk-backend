@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Market.Application.App.User.Teacher.Commands.UpdateTeacherState;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PGK.Application.App.Raportichka.Row.Commands.CreateRow;
 using PGK.Application.App.User.Teacher.Commands.DeleteTeacher;
@@ -6,6 +7,7 @@ using PGK.Application.App.User.Teacher.Commands.Registration;
 using PGK.Application.App.User.Teacher.Commands.TeacherAddSubject;
 using PGK.Application.App.User.Teacher.Queries.GetTeacherUserDetails;
 using PGK.Application.App.User.Teacher.Queries.GetTeacherUserList;
+using PGK.Domain.User.Quide;
 using PGK.WebApi.Models.Teacher;
 
 namespace PGK.WebApi.Controllers
@@ -16,6 +18,7 @@ namespace PGK.WebApi.Controllers
         /// Получите список прподавателей
         /// </summary>
         /// <param name="search">Ключивые слова для поиска</param>
+        /// <param name="state"></param>
         /// <param name="subjectIds"></param>
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="pageSize">Количество результатов для возврата на страницу</param>
@@ -27,6 +30,7 @@ namespace PGK.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TeacherUserListVm))]
         public async Task<ActionResult> GetAll(
             string? search,
+            GuideState? state,
             [FromQuery] List<int>? subjectIds,
             int pageNumber = 1, 
             int pageSize = 20)
@@ -36,7 +40,8 @@ namespace PGK.WebApi.Controllers
                 Search = search,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
-                SubjectIds = subjectIds
+                SubjectIds = subjectIds,
+                State = state
             };
 
             var vm = await Mediator.Send(query);
@@ -62,6 +67,23 @@ namespace PGK.WebApi.Controllers
             };
 
             var dto = await Mediator.Send(query);
+
+            return Ok(dto);
+        }
+
+        /// <response code="403">Авторизация роль EDUCATIONAL_SECTOR,ADMIN</response>
+        [Authorize(Roles = "EDUCATIONAL_SECTOR,ADMIN")]
+        [HttpPatch("{id}/State")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TeacherUserDetails))]
+        public async Task<ActionResult> UpdateState(int id, GuideState state)
+        {
+            var command = new UpdateTeacherStateCommand
+            {
+                TeacherId = id,
+                State = state
+            };
+
+            var dto = await Mediator.Send(command);
 
             return Ok(dto);
         }

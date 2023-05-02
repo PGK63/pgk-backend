@@ -36,7 +36,9 @@ namespace PGK.Application.App.Group.Queries.GetGroupStudentList
             {
                 if (request.Role != UserRole.ADMIN && request.Role == UserRole.TEACHER)
                 {
-                    var teacher = await _dbContext.TeacherUsers.FindAsync(request.UserId);
+                    var teacher = await _dbContext.TeacherUsers
+                        .Include(u => u.Сurator)
+                        .FirstOrDefaultAsync(u => u.Id == request.UserId);
 
                     if (teacher == null)
                     {

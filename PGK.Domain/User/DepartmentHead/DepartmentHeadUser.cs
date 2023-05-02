@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using PGK.Domain.User.Quide;
 
 namespace PGK.Domain.User.DepartmentHead
 {
@@ -9,5 +10,6 @@ namespace PGK.Domain.User.DepartmentHead
 
         public string? Cabinet { get; set; }
         public string? Information { get; set; }
+        public GuideState State { get; set; }
     }
 }

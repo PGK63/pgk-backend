@@ -24,6 +24,10 @@ namespace PGK.Application.App.User.Teacher.Queries.GetTeacherUserList
             IQueryable<TeacherUser> query = _dbContext.TeacherUsers
                 .Include(u => u.Subjects);
 
+            if (request.State != null)
+            {
+                query = query.Where(u => u.State == request.State);
+            }
 
             if (!string.IsNullOrEmpty(request.Search))
             {

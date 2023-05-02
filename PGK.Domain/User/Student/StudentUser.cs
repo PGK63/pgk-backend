@@ -9,7 +9,7 @@ namespace PGK.Domain.User.Student
     public class StudentUser : User
     {
         public override string Role => UserRole.STUDENT.ToString();
-
+        [Required] public StudentState State { get; set; }
         [Required] public Group.Group Group { get; set; }
 
         [Required] public Department.Department Department { get; set; }

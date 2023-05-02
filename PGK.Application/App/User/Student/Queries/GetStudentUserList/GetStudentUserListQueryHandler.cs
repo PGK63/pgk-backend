@@ -28,6 +28,11 @@ namespace PGK.Application.App.User.Student.Queries.GetStudentUserList
                 .Include(u => u.Group)
                     .ThenInclude(u => u.Speciality);
 
+            if (request.State != null)
+            {
+                queries = queries.Where(u => u.State == request.State);
+            }
+            
             if (!string.IsNullOrEmpty(request.Search))
             {
                 var search = request.Search.ToLower().Trim();

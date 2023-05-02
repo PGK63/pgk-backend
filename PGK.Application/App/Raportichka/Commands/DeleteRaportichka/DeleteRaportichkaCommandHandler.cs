@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using PGK.Application.Common.Exceptions;
 using PGK.Application.Interfaces;
 using PGK.Domain.User;
+using PGK.Domain.User.Quide;
 using PGK.Domain.User.Student;
+using PGK.Domain.User.Teacher;
 
 namespace PGK.Application.App.Raportichka.Commands.DeleteRaportichka
 {
@@ -18,14 +20,7 @@ namespace PGK.Application.App.Raportichka.Commands.DeleteRaportichka
         public async Task<Unit> Handle(DeleteRaportichkaCommand request,
             CancellationToken cancellationToken)
         {
-            if(request.UserRole != UserRole.HEADMAN ||
-                request.UserRole != UserRole.DEPUTY_HEADMAN ||
-                request.UserRole != UserRole.ADMIN)
-            {
-                throw new UnauthorizedAccessException();
-            }
-
-            if (request.UserRole != UserRole.ADMIN)
+            if (request.UserRole is UserRole.HEADMAN or UserRole.DEPUTY_HEADMAN)
             {
                 var student = await _dbContext.StudentsUsers
                     .Include(u => u.Group)
@@ -41,6 +36,22 @@ namespace PGK.Application.App.Raportichka.Commands.DeleteRaportichka
                 {
                     throw new UnauthorizedAccessException("Вы пытаетесь удалить рапортичку другой группы");
                 }
+            }else if (request.UserRole == UserRole.TEACHER)
+            {
+                var teaher = await _dbContext.TeacherUsers.FindAsync(request.UserId);
+
+                if (teaher == null)
+                {
+                    throw new NotFoundException(nameof(TeacherUser), request.UserId);
+                }
+
+                if (teaher.State == GuideState.DISMISSED)
+                {
+                    throw new UnauthorizedAccessException("Вы больше не работайте в ПГК");
+                }
+            }else if (request.UserRole != UserRole.ADMIN)
+            {
+                throw new UnauthorizedAccessException();   
             }
 
             var raportichka = await _dbContext.Raportichkas.FindAsync(request.Id);

@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using PGK.Application.Interfaces;
 using PGK.Application.Security;
+using PGK.Domain.User;
+using PGK.Domain.User.Quide;
+using PGK.Domain.User.Student;
 
 namespace PGK.Application.App.User.Auth.Commands.RefreshToken
 { 
@@ -28,6 +31,42 @@ namespace PGK.Application.App.User.Auth.Commands.RefreshToken
             if(!_auth.TokenValidation(token: request.RefreshToken, type: TokenType.REFRESH_TOKEN))
             {
                 throw new UnauthorizedAccessException("The token has expired");
+            }
+            
+            if (user.Role == UserRole.TEACHER.ToString())
+            {
+                var teaher = await _dbContext.TeacherUsers.FindAsync(user.Id);
+
+                if (teaher is { State: GuideState.DISMISSED })
+                {
+                    throw new UnauthorizedAccessException("Вы больше не работайте в ПГК");
+                }
+            }else if (user.Role == UserRole.STUDENT.ToString()
+                      || user.Role == UserRole.DEPUTY_HEADMAN.ToString()
+                      || user.Role == UserRole.HEADMAN.ToString())
+            {
+                var student = await _dbContext.StudentsUsers.FindAsync(user.Id);
+
+                if (student is { State: StudentState.EXPELLED })
+                {
+                    throw new UnauthorizedAccessException("Вы больше не учитесь в ПГК");
+                }
+            }else if (user.Role == UserRole.DIRECTOR.ToString())
+            {
+                var director = await _dbContext.DirectorUsers.FindAsync(user.Id);
+
+                if (!director.Current)
+                {
+                    throw new UnauthorizedAccessException("Вы больше не работайте в ПГК");
+                }
+            }else if (user.Role == UserRole.DEPARTMENT_HEAD.ToString())
+            {
+                var departmentHeadUser = await _dbContext.DepartmentHeadUsers.FindAsync(user.Id);
+
+                if (departmentHeadUser is { State: GuideState.DISMISSED })
+                {
+                    throw new UnauthorizedAccessException("Вы больше не работайте в ПГК");
+                }
             }
 
             var jwtToken = _auth.CreateAccessToken(userId: user.Id, userRole: user.Role);
