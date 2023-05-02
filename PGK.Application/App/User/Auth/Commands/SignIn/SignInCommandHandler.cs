@@ -45,7 +45,7 @@ namespace PGK.Application.App.User.Auth.Commands.SignIn
                     break;
                 }
 
-                if (PasswordHash.ValidatePassword(request.Password.Trim(), i.Password.Trim()))
+                if (PasswordHash.ValidatePassword(request.Password.Trim(), i.PasswordHash.Trim()))
                 {
                     user = i;
                 }

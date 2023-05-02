@@ -45,7 +45,7 @@ namespace PGK.Application.App.User.Headman.Commands.DeputyRegistration
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 MiddleName = student.MiddleName,
-                Password = student.Password,
+                PasswordHash = student.PasswordHash,
                 Email = student.Email,
                 RefreshToken = refreshToken,
                 Group = student.Group,

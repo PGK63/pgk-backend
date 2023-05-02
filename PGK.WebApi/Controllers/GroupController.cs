@@ -85,6 +85,7 @@ namespace PGK.WebApi.Controllers
         /// Получить студентов по идентификатору группы
         /// </summary>
         /// <param name="id">идентификатор группы</param>
+        /// <param name="passwordVisibility"></param>
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="pageSize">Количество результатов для возврата на страницу</param>
         /// <returns>GroupStudentListVm object</returns>
@@ -94,14 +95,17 @@ namespace PGK.WebApi.Controllers
         [HttpGet("{id}/Students")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GroupStudentListVm))]
         public async Task<ActionResult> GetStudentAll(
-            int id, int pageNumber = 1, int pageSize = 20
+            int id, bool passwordVisibility = false, int pageNumber = 1, int pageSize = 20
             )
         {
             var query = new GetGroupStudentListQuery
             {
                 GroupId = id,
                 PageNumber = pageNumber,
-                PageSize = pageSize
+                PageSize = pageSize,
+                PasswordVisibility = passwordVisibility,
+                Role = UserRole.Value,
+                UserId = UserId
             };
 
             var vm = await Mediator.Send(query);

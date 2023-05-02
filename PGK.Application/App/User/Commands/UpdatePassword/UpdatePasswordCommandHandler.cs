@@ -28,7 +28,7 @@ namespace PGK.Application.App.User.Commands.UpdatePassword
 
             var passwordHash = PasswordHash.CreateHash(password);
 
-            user.Password = passwordHash;
+            user.PasswordHash = passwordHash;
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return password;
