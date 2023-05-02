@@ -29,11 +29,9 @@ namespace PGK.Application.App.Group.Queries.GetGroupList
 
             if (!string.IsNullOrEmpty(request.Search))
             {
-                var search = request.Search.ToLower();
-
-                query = query.Where(u => u.Number.ToString().ToLower().Contains(search) ||
-                    u.Speciality.Name.ToLower().Contains(search) 
-                    || u.Speciality.NameAbbreviation.ToLower().Contains(search));
+                var search = request.Search.ToLower().Trim();
+                
+                query = query.Where(u => SearchGroup(search, u));
             }
 
             if (request.Courses != null && request.Courses.Count > 0)
@@ -84,6 +82,15 @@ namespace PGK.Application.App.Group.Queries.GetGroupList
                 request.PageSize);
 
             return new GroupListVm { Results =  groupsPaged };
+        }
+
+        private bool SearchGroup(string search, Domain.Group.Group group)
+        {
+            var number = group.Course + group.Number.ToString();
+            
+            return number.Contains(search) ||
+                   group.Speciality.Name.ToLower().Contains(search)
+                   || group.Speciality.NameAbbreviation.ToLower().Contains(search);
         }
     }
 }
