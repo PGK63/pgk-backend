@@ -1,4 +1,6 @@
-﻿namespace PGK.WebApi.Models.Raportichka
+﻿using PGK.Domain.Raportichka;
+
+namespace PGK.WebApi.Models.Raportichka
 {
     public class UpdateRaportichkaRowModel
     {
@@ -8,5 +10,6 @@
         public int TeacherId { get; set; }
         public int StudentId { get; set; }
         public int RaportichkaId { get; set; }
+        public RaportichkaCause Cause { get; set; }
     }
 }

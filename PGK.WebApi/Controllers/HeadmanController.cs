@@ -162,7 +162,8 @@ namespace PGK.WebApi.Controllers
                 SubjectId = model.SubjectId,
                 TeacherId = model.TeacherId,
                 StudentId = model.StudentId,
-                RaportichkaId = model.RaportichkaId
+                RaportichkaId = model.RaportichkaId,
+                Cause = model.Cause
             };
 
             await Mediator.Send(command);

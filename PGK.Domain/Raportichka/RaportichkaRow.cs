@@ -10,6 +10,7 @@ namespace PGK.Domain.Raportichka
         [Required] public int NumberLesson { get; set; }
         [Required] public bool Confirmation { get; set; }
         [Required] public int Hours { get; set; }
+        [Required] public RaportichkaCause Cause { get; set; }
         [Required] public Subject.Subject Subject { get; set; }
         [Required] public TeacherUser Teacher { get; set; }
         [Required] public StudentUser Student { get; set; }

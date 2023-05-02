@@ -95,6 +95,7 @@ namespace PGK.Application.App.Raportichka.Row.Commands.UpdateRow
             row.Subject = subject;
             row.Student = student;
             row.Raportichka = raportichka;
+            row.Cause = request.Cause;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

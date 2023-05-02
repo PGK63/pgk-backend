@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "LpMHUj+S6ZDBi9XNJ+GCo3cui2SdkU3Uwno6x0KfcXbiJhoG4Vimhg5wPlKOXDj2f3UacvZTfbq/G8Plx+5kjw==",
+  "dgSpecHash": "ZQU+4zntXiB94fWhFT484LF1xCW19n9rCabU+zdm4fExbjxr9OOseucuD1RQMxaDmJaz+Lqtwk72NWgW3/r/cQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\danbe\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.14\\microsoft.netcore.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\danbe\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.14\\microsoft.windowsdesktop.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\danbe\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.14\\microsoft.aspnetcore.app.ref.6.0.14.nupkg.sha512"
+  ],
   "logs": []
 }

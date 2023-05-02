@@ -149,7 +149,7 @@ namespace PGK.WebApi.Controllers
             return Ok(vm);
         }
 
-        [Authorize("TEACHER,EDUCATIONAL_SECTOR,ADMIN")]
+        [Authorize(Roles = "TEACHER,EDUCATIONAL_SECTOR,ADMIN")]
         [HttpPatch("{id}/Course")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GroupDetails))]
         public async Task<ActionResult> UpdateCourse(int id, int course)

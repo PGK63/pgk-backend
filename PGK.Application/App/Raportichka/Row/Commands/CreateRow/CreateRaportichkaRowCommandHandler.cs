@@ -101,7 +101,8 @@ namespace PGK.Application.App.Raportichka.Row.Commands.CreateRow
                 Student = student,
                 Subject = subject,
                 Teacher = teacher,
-                Raportichka = raportichka
+                Raportichka = raportichka,
+                Cause = request.Cause
             };
 
             var notification = new Notification

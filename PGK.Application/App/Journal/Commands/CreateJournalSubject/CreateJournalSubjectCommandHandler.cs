@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PGK.Application.App.Journal.Queries.GetJournalSubjectList;
 using PGK.Application.Common.Exceptions;
 using PGK.Application.Interfaces;
 using PGK.Domain.Journal;
 using PGK.Domain.User;
 using PGK.Domain.User.Teacher;
+using ArgumentException = System.ArgumentException;
 
 namespace PGK.Application.App.Journal.Commands.CreateJournalSubject
 {
@@ -32,10 +34,12 @@ namespace PGK.Application.App.Journal.Commands.CreateJournalSubject
 
             if(request.Role == UserRole.TEACHER)
             {
-                teacherUser = await _dbContext.TeacherUsers.FindAsync(request.UserId) ?? 
-                    throw new NotFoundException(nameof(TeacherUser), request.UserId);
+                teacherUser = await _dbContext.TeacherUsers
+                    .Include(u => u.Subjects)
+                    .FirstOrDefaultAsync(u => u.Id == request.UserId)
+                    ?? throw new NotFoundException(nameof(TeacherUser), request.UserId);
 
-                if(!teacherUser.Subjects.Any(u => u.Id == subject.Id))
+                if(teacherUser.Subjects.All(u => u.Id != subject.Id))
                 {
                     throw new ArgumentException("Преподаватель может взаимодействовать только со своим предметом");
                 }

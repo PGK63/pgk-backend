@@ -9,6 +9,9 @@
         SUBJECT,
         SPECIALITY,
         DIRECTOR,
-        DEPARTMENT_HEAD
+        DEPARTMENT_HEAD,
+        JOURNAL,
+        RAPORTICHKA,
+        SEARCH
     }
 }

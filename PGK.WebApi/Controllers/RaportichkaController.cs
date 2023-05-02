@@ -131,7 +131,8 @@ namespace PGK.WebApi.Controllers
                 Hours = model.Hours,
                 StudentId = model.StudentId,
                 SubjectId = model.SubjectId,
-                TeacherId = model.TeacherId
+                TeacherId = model.TeacherId,
+                Cause = model.Cause
             };
 
             var vm = await Mediator.Send(command);
@@ -185,7 +186,8 @@ namespace PGK.WebApi.Controllers
                 Hours = model.Hours,
                 SubjectId = model.SubjectId,
                 StudentId = model.StudentId,
-                RaportichkaId = model.RaportichkaId
+                RaportichkaId = model.RaportichkaId,
+                Cause = model.Cause
             };
 
             await Mediator.Send(command);
