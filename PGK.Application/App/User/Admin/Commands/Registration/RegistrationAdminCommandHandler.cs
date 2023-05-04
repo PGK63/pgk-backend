@@ -29,7 +29,7 @@ namespace PGK.Application.App.User.Admin.Commands.Registration
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 MiddleName = request.MiddleName,
-                PasswordHash = passwordHash,
+                Password = passwordHash,
                 RefreshToken = refreshToken
             };
 

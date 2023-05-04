@@ -29,9 +29,12 @@ namespace PGK.Application.App.Group.Queries.GetGroupList
 
             if (!string.IsNullOrEmpty(request.Search))
             {
-                var search = request.Search.ToLower().Trim();
-                
-                query = query.Where(u => SearchGroup(search, u));
+                var search = request.Search.Trim().ToLower();
+
+                query = query.Where(u => u.Number.ToString().Contains(search) ||
+                    u.Speciality.Name.ToLower().Contains(search) 
+                    || u.Speciality.NameAbbreviation.ToLower().Contains(search)
+                    || u.Course.ToString().Contains(search));
             }
 
             if (request.Courses != null && request.Courses.Count > 0)

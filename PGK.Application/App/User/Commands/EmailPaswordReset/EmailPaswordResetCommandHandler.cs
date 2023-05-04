@@ -44,7 +44,7 @@ namespace PGK.Application.App.User.Commands.EmailPaswordReset
 
             var hashPassword = PasswordHash.CreateHash(newPassword);
 
-            user.PasswordHash = hashPassword;
+            user.Password = hashPassword;
             user.SendEmailToken = null;
             await _dbContext.SaveChangesAsync(cancellationToken);
 

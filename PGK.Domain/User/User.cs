@@ -22,8 +22,8 @@ namespace PGK.Domain.User
 
         public string? SendEmailToken { get; set; }
 
-        [Required, MaxLength(256)] public string PasswordHash { get; set; } = string.Empty;
-        [Required, MaxLength(64)] public string Password { get; set; } = string.Empty;
+        [Required, MaxLength(256)] public string Password { get; set; } = string.Empty;
+        //[Required, MaxLength(64)] public string Password { get; set; } = string.Empty;
 
         public bool? DrarkMode { get; set; }
         [Required] public ThemeStyle ThemeStyle { get; set; } = ThemeStyle.Blue;
@@ -48,7 +48,7 @@ namespace PGK.Domain.User
         public virtual List<Message> TechnicalSupportMessages { get; set; } = new();
 
         public virtual List<Notification.Notification> Notifications { get; set; } = new();
-        //public virtual List<History.History> Histories { get; set; } = new();
+        public virtual List<History.History> Histories { get; set; } = new();
         
         public virtual string Role => "USER";
     }

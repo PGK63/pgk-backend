@@ -71,4 +71,4 @@ C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Persistence\obj\Debug\net6.0\r
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Persistence\obj\Debug\net6.0\PGK.Persistence.pdb
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Persistence\obj\Debug\net6.0\PGK.Persistence.genruntimeconfig.cache
 C:\Users\student\source\repos\PGK\PGK.Backend\PGK.Persistence\obj\Debug\net6.0\ref\PGK.Persistence.dll
-C:\Users\danbe\Desktop\PGK\PGK.Backend\PGK.Persistence\obj\Debug\net6.0\refint\PGK.Persistence.dll
+C:\Users\danbe\Desktop\PGK\PGK.Backend\PGK.Persistence\bin\Debug\net6.0\ref\PGK.Persistence.dll

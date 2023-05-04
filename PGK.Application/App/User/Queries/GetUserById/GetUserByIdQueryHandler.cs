@@ -17,7 +17,7 @@ namespace PGK.Application.App.User.Queries.GetUserById
         public async Task<UserDetailsDto> Handle(GetUserByIdQuery request,
             CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users.FindAsync(request.UserId);
+            var user = await _dbContext.Users.FindAsync(new object?[] { request.UserId }, cancellationToken: cancellationToken);
 
             if (user == null)
             {

@@ -7,7 +7,7 @@ using PGK.Application.Interfaces;
 
 namespace Market.Application.App.VedomostAttendance;
 
-public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAttendanceQuery, Stream>
+public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAttendanceQuery, byte[]>
 {
     private readonly IPGKDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -15,7 +15,7 @@ public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAtte
     public GetVedomostAttendanceQueryHandler(IPGKDbContext dbContext, IMapper mapper) =>
         (_dbContext, _mapper) = (dbContext, mapper);
     
-    public async Task<Stream> Handle(GetVedomostAttendanceQuery request, CancellationToken cancellationToken)
+    public async Task<byte[]> Handle(GetVedomostAttendanceQuery request, CancellationToken cancellationToken)
     {
         var month = request.Date.Month;
         var year = request.Date.Year;
@@ -30,15 +30,19 @@ public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAtte
             .Include(u => u.Group)
             .FirstOrDefaultAsync(u => u.Group.Id == request.GroupId);
 
-        var patch = $"{Constants.VACATIONVEDOMOST_ATTENDANCE_PATH}${year}/${month}/${request.GroupId}.xls";
-        
-        if(File.Exists(patch)) 
+        var directory = $"{Constants.VACATIONVEDOMOST_ATTENDANCE_PATH}{year}/{month}/";
+        var patch = $"{directory}{request.GroupId}.xls";
+
+        if (File.Exists(patch))
             File.Delete(patch);
 
-        File.Create(patch);
+        if (!Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+
+        using var file = File.Create(patch);
 
         using var package = new ExcelPackage(patch);
 
-        return package.Stream;
+        return File.ReadAllBytes(patch);
     }
 }

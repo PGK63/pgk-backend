@@ -40,7 +40,7 @@ namespace PGK.Application.App.User.Student.Commands.Registration
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 MiddleName = request.MiddleName,
-                PasswordHash = passwordHash,
+                Password = passwordHash,
                 RefreshToken = refreshToken,
                 Group = group,
                 Department = group.Department

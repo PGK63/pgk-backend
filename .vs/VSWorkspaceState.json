@@ -10,6 +10,7 @@
     "\\PGK.Application\\Security",
     "\\PGK.Domain",
     "\\PGK.Domain\\TechnicalSupport",
+    "\\PGK.Persistence",
     "\\PGK.WebApi",
     "\\PGK.WebApi\\Controllers"
   ],
