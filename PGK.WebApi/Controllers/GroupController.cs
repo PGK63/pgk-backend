@@ -1,5 +1,6 @@
 ﻿using Market.Application.App.Group.Queries.GetAnalyticsJournal;
 using Market.Application.App.Group.Queries.GetAnalyticsRaportichka;
+using Market.Application.App.VedomostAttendance;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PGK.Application.App.Group.Commands.CreateGroup;
@@ -58,7 +59,22 @@ namespace PGK.WebApi.Controllers
 
             return Ok(details);
         }
+        
+        // [Authorize]
+        [HttpGet("{id}/Vedomost/Attendance")]
+        public async Task<ActionResult> GetVedomostAttendance(int id, DateTime date)
+        {
+            var query = new GetVedomostAttendanceQuery
+            {
+                GroupId = id,
+                Date = date
+            };
 
+            var stream = await Mediator.Send(query);
+
+            return File(stream, "application/vnd.ms-excel");
+        }
+        
         /// <summary>
         /// Получить классного руководителя по идентификатору группы
         /// </summary>

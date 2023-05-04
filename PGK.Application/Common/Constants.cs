@@ -7,7 +7,7 @@
         public const string USER_PHOTO_PATH = "resources/user/photo/";
         public const string STATEMENT_FILE_PATH = "resources/statement/files/";
         public const string TECHNICAL_SUPPORT_MESSAGE_CONTENT_PATH = "resources/technicalSupport/message/content/";
-
+        public const string VACATIONVEDOMOST_ATTENDANCE_PATH = "resources/vedomost/attendance/";
         public const string IMAGES = "resources/images/";
         public const int PASSWORD_LENGTH = 16;
     }
