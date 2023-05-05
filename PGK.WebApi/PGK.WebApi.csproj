@@ -24,8 +24,4 @@
     <ProjectReference Include="..\PGK.Persistence\PGK.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="resources\vedomost\attendance\1952\6\" />
-  </ItemGroup>
-
 </Project>

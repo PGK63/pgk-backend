@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ynUEVtc+rlH3hD77gHMuBnFjpfXvFTQvFEWmQDtkGjZpZfn8dsD0a6wemWDOLAb7KUoJDIoqdvxqlObHmxnjIA==",
+  "dgSpecHash": "dwWQP/cw48vEREFeb7P4jB6B4Or/STMbK3ypR4irR8uw4ZUYize7cgXRGlAcrq32ZeCHPDT7ylqovKjktaElMA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj",
+  "projectFilePath": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\PGK.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

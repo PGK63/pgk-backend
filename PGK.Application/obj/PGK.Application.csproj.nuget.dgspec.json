@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Application\\PGK.Application.csproj": {}
+    "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Application\\PGK.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Application\\PGK.Application.csproj": {
+    "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Application\\PGK.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Application\\PGK.Application.csproj",
+        "projectUniqueName": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Application\\PGK.Application.csproj",
         "projectName": "PGK.Application",
-        "projectPath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Application\\PGK.Application.csproj",
-        "packagesPath": "C:\\Users\\Sergei Belyakov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Application\\obj\\",
+        "projectPath": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Application\\PGK.Application.csproj",
+        "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Sergei Belyakov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\student\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -32,8 +34,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj": {
-                "projectPath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj"
+              "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\PGK.Domain.csproj": {
+                "projectPath": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\PGK.Domain.csproj"
               }
             }
           }
@@ -64,6 +66,14 @@
               "target": "Package",
               "version": "[11.4.0, )"
             },
+            "FreeSpire.XLS": {
+              "target": "Package",
+              "version": "[12.7.0, )"
+            },
+            "IronXL.Excel": {
+              "target": "Package",
+              "version": "[2023.1.14, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[3.4.3, )"
@@ -87,6 +97,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.11, )"
+            },
+            "Microsoft.Office.Interop.Excel": {
+              "target": "Package",
+              "version": "[15.0.4795.1001, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -112,26 +126,28 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj": {
+    "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\PGK.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\PGK.Domain.csproj",
         "projectName": "PGK.Domain",
-        "projectPath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\PGK.Domain.csproj",
-        "packagesPath": "C:\\Users\\Sergei Belyakov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danbe\\Desktop\\PGK\\PGK.Backend\\PGK.Domain\\obj\\",
+        "projectPath": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\PGK.Domain.csproj",
+        "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\student\\source\\repos\\pgk-backend\\PGK.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Sergei Belyakov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\student\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -170,7 +186,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
