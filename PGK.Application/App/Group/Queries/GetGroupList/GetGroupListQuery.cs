@@ -8,7 +8,7 @@ namespace PGK.Application.App.Group.Queries.GetGroupList
     {
         [FromQuery(Name = "search")] public string? Search { get; set; }
         [FromQuery(Name = "course")] public List<int>? Courses { get; set; } = new List<int>();
-        [FromQuery(Name = "number")] public List<int>? Number { get; set; } = new List<int>();
+        [FromQuery(Name = "number")] public List<string>? Number { get; set; } = new List<string>();
        
         [FromQuery(Name = "specialityIds")] public List<int>? SpecialityIds { get; set; } = new List<int>();
         [FromQuery(Name = "departmentIds")] public List<int>? DepartmentIds { get; set; } = new List<int>();

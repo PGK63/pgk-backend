@@ -111,7 +111,7 @@ namespace PGK.Application.App.Schedule.Commands.FileCreateSchedule
                         var groupDb = await _dbContext.Groups
                             .Include(u => u.Speciality)
                             .FirstOrDefaultAsync(u =>
-                                u.Number == int.Parse(groupNumberAndSpeciality[1]) &&
+                                u.Number == groupNumberAndSpeciality[1] &&
                                 u.Speciality.NameAbbreviation == groupNumberAndSpeciality[0]);
 
                         var scheduleColumn = new ScheduleColumn

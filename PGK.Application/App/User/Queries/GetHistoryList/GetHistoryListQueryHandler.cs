@@ -21,7 +21,7 @@ namespace PGK.Application.App.User.Queries.GetHistoryList
         {
             IQueryable<Domain.User.History.History> query = _dbContext.Histories
                 .Where(u => u.User.Id == request.UserId)
-                .OrderByDescending(u => u.Date);
+                .OrderByDescending(u => u.Id);
 
             var histories = query.ProjectTo<HistoryDto>(_mapper.ConfigurationProvider);
 

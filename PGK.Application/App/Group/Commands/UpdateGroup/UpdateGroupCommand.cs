@@ -8,7 +8,7 @@ namespace PGK.Application.App.Group.Commands.UpdateGroup
     {
         [Required] public int Id { get; set; }
 
-        [Required] public int Number { get; set; }
+        [Required] public string Number { get; set; }
         [Required] public int SpecialityId { get; set; }
         [Required] public int ClassroomTeacherId { get; set; }
         public int? HeadmanId { get; set; } = null;

@@ -25,7 +25,14 @@ namespace PGK.Application.App.User.Commands.UpdateDrarkMode
                 throw new NotFoundException(nameof(Domain.User.User), request.UserId);
             }
 
-            user.DrarkMode = !user.DrarkMode;
+            if (user.DrarkMode == null)
+            {
+                user.DrarkMode = true;
+            }
+            else
+            {
+                user.DrarkMode = !user.DrarkMode;   
+            }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

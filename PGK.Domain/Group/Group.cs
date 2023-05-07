@@ -10,7 +10,7 @@ namespace PGK.Domain.Group
     {
         [Key] public int Id { get; set; }
         [Required] public int Course { get; set; }
-        [Required] public int Number { get; set; }
+        [Required] public string Number { get; set; }
         [Required] public Speciality.Speciality Speciality { get; set; }
         [Required] public TeacherUser ClassroomTeacher { get; set; }
         public HeadmanUser? Headman { get; set; } = null;

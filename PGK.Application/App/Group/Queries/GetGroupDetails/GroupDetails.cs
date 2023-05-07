@@ -13,7 +13,7 @@ namespace PGK.Application.App.Group.Queries.GetGroupDetails
     {
         [Key] public int Id { get; set; }
         [Required] public int Course { get; set; }
-        [Required] public int Number { get; set; }
+        [Required] public string Number { get; set; }
         [Required] public SpecialityDto Speciality { get; set; }
         //[Required] public DepartmentDto Department { get; set; }
         [Required] public TeacherUserDetails ClassroomTeacher { get; set; }

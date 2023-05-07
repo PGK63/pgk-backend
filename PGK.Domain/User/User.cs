@@ -23,9 +23,8 @@ namespace PGK.Domain.User
         public string? SendEmailToken { get; set; }
 
         [Required, MaxLength(256)] public string Password { get; set; } = string.Empty;
-        //[Required, MaxLength(64)] public string Password { get; set; } = string.Empty;
 
-        public bool? DrarkMode { get; set; }
+        public bool? DrarkMode { get; set; } = null;
         [Required] public ThemeStyle ThemeStyle { get; set; } = ThemeStyle.Blue;
         [Required] public ThemeFontStyle ThemeFontStyle { get; set; } = ThemeFontStyle.Default;
         [Required] public ThemeFontSize ThemeFontSize { get; set; } = ThemeFontSize.Medium;

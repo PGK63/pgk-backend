@@ -13,6 +13,7 @@ using PGK.Application.App.Group.Queries.GetGroupList;
 using PGK.Application.App.Group.Queries.GetGroupStudentList;
 using PGK.Application.App.Raportichka.Commands.CreateRaportichka;
 using PGK.Application.App.User.Teacher.Queries.GetTeacherUserDetails;
+using PGK.Application.Common.Date;
 using PGK.WebApi.Models.Group;
 
 namespace PGK.WebApi.Controllers
@@ -62,12 +63,13 @@ namespace PGK.WebApi.Controllers
         
         // [Authorize]
         [HttpGet("{id}/Vedomost/Attendance")]
-        public async Task<ActionResult> GetVedomostAttendance(int id, DateTime date)
+        public async Task<ActionResult> GetVedomostAttendance(int id, int year, Month month = Month.January)
         {
             var query = new GetVedomostAttendanceQuery
             {
                 GroupId = id,
-                Date = date
+                Year = year,
+                Month = month
             };
 
             var stream = await Mediator.Send(query);
@@ -111,17 +113,14 @@ namespace PGK.WebApi.Controllers
         [HttpGet("{id}/Students")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GroupStudentListVm))]
         public async Task<ActionResult> GetStudentAll(
-            int id, bool passwordVisibility = false, int pageNumber = 1, int pageSize = 20
+            int id, int pageNumber = 1, int pageSize = 20
             )
         {
             var query = new GetGroupStudentListQuery
             {
                 GroupId = id,
                 PageNumber = pageNumber,
-                PageSize = pageSize,
-                PasswordVisibility = passwordVisibility,
-                Role = UserRole.Value,
-                UserId = UserId
+                PageSize = pageSize
             };
 
             var vm = await Mediator.Send(query);

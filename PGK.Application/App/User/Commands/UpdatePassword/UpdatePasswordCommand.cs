@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using PGK.Domain.User;
 
 namespace PGK.Application.App.User.Commands.UpdatePassword
 {

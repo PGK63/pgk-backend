@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Market.Application.App.Journal.Commands.UpdateJournalSubject;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PGK.Application.App.Journal.Commands.CreateJournal;
 using PGK.Application.App.Journal.Commands.CreateJournalSubject;
@@ -121,8 +122,8 @@ namespace PGK.WebApi.Controllers
         /// <returns>JournalSubjectDto object</returns>
         /// <response code="200">Запрос выполнен успешно</response>
         /// <response code="401">Пустой или неправильный токен</response>
-        /// <response code="403">Авторизация роль TEACHER</response>
-        [Authorize(Roles = "TEACHER")]
+        /// <response code="403">Авторизация роль TEACHER,EDUCATIONAL_SECTOR,ADMIN</response>
+        [Authorize(Roles = "TEACHER,EDUCATIONAL_SECTOR,ADMIN")]
         [HttpPost("{id}/Subject")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JournalSubjectDto))]
         public async Task<ActionResult> CreateSubject(
@@ -132,6 +133,7 @@ namespace PGK.WebApi.Controllers
             {
                 Hours = model.Hours,
                 SubjectId = model.SubjectId,
+                TeacherId = model.TeacherId,
                 JournalId = id,
                 UserId = UserId,
                 Role = UserRole.Value
@@ -141,7 +143,29 @@ namespace PGK.WebApi.Controllers
 
             return Ok(dto);
         }
+        
+        /// <response code="403">Авторизация роль TEACHER,EDUCATIONAL_SECTOR,ADMIN</response>
+        [Authorize(Roles = "TEACHER,EDUCATIONAL_SECTOR,ADMIN")]
+        [HttpPut("Subject/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JournalSubjectDto))]
+        public async Task<ActionResult> UpdateSubject(
+            int id,UpdateJournalSubjectModal model)
+        {
+            var command = new UpdateJournalSubjectCommand
+            {
+                Hours = model.Hours,
+                SubjectId = model.SubjectId,
+                TeacherId = model.TeacherId,
+                JournalSubjectId = id,
+                UserId = UserId,
+                Role = UserRole.Value
+            };
 
+            var dto = await Mediator.Send(command);
+
+            return Ok(dto);
+        }
+        
         /// <summary>
         /// Удалить предмет из журнала
         /// </summary>

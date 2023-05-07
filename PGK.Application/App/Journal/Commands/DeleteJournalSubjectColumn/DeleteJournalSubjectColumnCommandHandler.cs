@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PGK.Application.Common.Exceptions;
 using PGK.Application.Interfaces;
 using PGK.Domain.Journal;
@@ -18,7 +19,11 @@ namespace PGK.Application.App.Journal.Commands.DeleteJournalSubjectColumn
         public async Task<Unit> Handle(DeleteJournalSubjectColumnCommand request,
             CancellationToken cancellationToken)
         {
-            var column = await _dbContext.JournalSubjectColumns.FindAsync(request.Id);
+            var column = await _dbContext.JournalSubjectColumns
+                .Include(u => u.Row)
+                    .ThenInclude(u => u.JournalSubject)
+                        .ThenInclude(u => u.Teacher)
+                .FirstOrDefaultAsync(u => u.Id == request.Id);
 
             if (column == null)
             {
@@ -27,14 +32,7 @@ namespace PGK.Application.App.Journal.Commands.DeleteJournalSubjectColumn
 
             if (request.Role == UserRole.TEACHER)
             {
-                var teacher = await _dbContext.TeacherUsers.FindAsync(request.UserId);
-
-                if (teacher == null)
-                {
-                    throw new NotFoundException(nameof(TeacherUser), request.UserId);
-                }
-
-                if (column.Row.JournalSubject.Teacher.Id != teacher.Id)
+                if (column.Row.JournalSubject.Teacher.Id != request.UserId)
                 {
                     throw new UnauthorizedAccessException("Преподаватель может взаимодействовать только со своим предметом");
                 }

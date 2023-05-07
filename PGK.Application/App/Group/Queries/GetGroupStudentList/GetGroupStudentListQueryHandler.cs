@@ -30,37 +30,9 @@ namespace PGK.Application.App.Group.Queries.GetGroupStudentList
             
             var students = query
                 .OrderByDescending(u => u.Id)
-                .ProjectTo<StudentPasswordDto>(_mapper.ConfigurationProvider);
-
-            if (request.PasswordVisibility)
-            {
-                if (request.Role != UserRole.ADMIN && request.Role == UserRole.TEACHER)
-                {
-                    var teacher = await _dbContext.TeacherUsers
-                        .Include(u => u.Сurator)
-                        .FirstOrDefaultAsync(u => u.Id == request.UserId);
-
-                    if (teacher == null)
-                    {
-                        throw new NotFoundException(nameof(TeacherUser), request.UserId);
-                    }
-
-                    if (teacher.Сurator.Any(u => u.Id != request.GroupId))
-                    {
-                        students = students.Select(u => StudentToPasswordNull(u));    
-                    }
-                }
-                else
-                {
-                    students = students.Select(u => StudentToPasswordNull(u));
-                }
-            }
-            else
-            {
-                students = students.Select(u => StudentToPasswordNull(u));
-            }
+                .ProjectTo<StudentDto>(_mapper.ConfigurationProvider);
             
-            var studentsPaged = await PagedList<StudentPasswordDto>.ToPagedList(students, request.PageNumber,
+            var studentsPaged = await PagedList<StudentDto>.ToPagedList(students, request.PageNumber,
                 request.PageSize);
 
             return new GroupStudentListVm
@@ -69,10 +41,5 @@ namespace PGK.Application.App.Group.Queries.GetGroupStudentList
             };
         }
 
-        private StudentPasswordDto StudentToPasswordNull(StudentPasswordDto studentUser)
-        {
-            studentUser.Password = null;
-            return studentUser;
-        }
     }
 }

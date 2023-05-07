@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PGK.Application.App.Journal.Queries.GetJournalSubjectColumnList;
 using PGK.Application.Common.Exceptions;
 using PGK.Application.Interfaces;
@@ -21,7 +22,11 @@ namespace PGK.Application.App.Journal.Commands.UpdateJournalEvaluation
         public async Task<JournalSubjectColumnDto> Handle(UpdateJournalEvaluationCommand request, 
             CancellationToken cancellationToken)
         {
-            var column = await _dbContext.JournalSubjectColumns.FindAsync(request.JournalColumnId);
+            var column = await _dbContext.JournalSubjectColumns
+                .Include(u => u.Row)
+                .ThenInclude(u => u.JournalSubject)
+                .ThenInclude(u => u.Teacher)
+                .FirstOrDefaultAsync(u => u.Id == request.JournalColumnId);
 
             if(column == null)
             {
@@ -30,14 +35,7 @@ namespace PGK.Application.App.Journal.Commands.UpdateJournalEvaluation
 
             if(request.Role == UserRole.TEACHER)
             {
-                var teacher = await _dbContext.TeacherUsers.FindAsync(request.UserId);
-
-                if (teacher == null)
-                {
-                    throw new NotFoundException(nameof(TeacherUser), request.UserId);
-                }
-
-                if (teacher.Id != column.Row.JournalSubject.Teacher.Id)
+                if (request.UserId != column.Row.JournalSubject.Teacher.Id)
                 {
                     throw new ArgumentException("Преподаватель может взаимодействовать только со своим предметом");
                 }

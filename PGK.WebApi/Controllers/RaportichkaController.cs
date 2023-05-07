@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Market.Application.App.Raportichka.Row.Commands.UpdateAllConfirmation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PGK.Application.App.Raportichka.Commands.DeleteRaportichka;
 using PGK.Application.App.Raportichka.Commands.UpdateRaportichka;
@@ -218,6 +219,22 @@ namespace PGK.WebApi.Controllers
             var vm = await Mediator.Send(command);
 
             return Ok(vm);
+        }
+        
+        [Authorize(Roles = "TEACHER,ADMIN")]
+        [HttpPatch("{id}/Row/Confirmation")]
+        public async Task<ActionResult> UpdateAllConfirmation(int id)
+        {
+            var command = new UpdateAllConfirmationCommand
+            { 
+                UserId = UserId,
+                Role = UserRole.Value,
+                RaportichkaId = id
+            };
+        
+            await Mediator.Send(command);
+
+            return Ok();
         }
 
         /// <summary>

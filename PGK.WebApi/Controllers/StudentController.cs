@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PGK.Application.App.User.Student.Commands.Delete;
 using PGK.Application.App.User.Student.Commands.Registration;
 using PGK.Application.App.User.Student.Commands.UpdateGroup;
+using PGK.Application.App.User.Student.Commands.UpdatePassword;
 using PGK.Application.App.User.Student.Queries.GetStudentUserDetails;
 using PGK.Application.App.User.Student.Queries.GetStudentUserList;
 using PGK.Domain.User.Student;
@@ -69,6 +70,23 @@ namespace PGK.WebApi.Controllers
             var dto = await Mediator.Send(query);
 
             return Ok(dto);
+        }
+
+        [Authorize(Roles = "TEACHER,EDUCATIONAL_SECTOR,ADMIN")]
+        [HttpPatch("{id}/Password")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        public async Task<ActionResult> UpdatePassword(int id)
+        {
+            var command = new StudentUpdatePassswordCoomand
+            {
+                StudentId = id,
+                UserId = UserId,
+                Role = UserRole.Value
+            };
+
+            var password = await Mediator.Send(command);
+
+            return Ok(password);
         }
 
         [Authorize(Roles = "TEACHER,EDUCATIONAL_SECTOR,ADMIN")]

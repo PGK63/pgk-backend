@@ -4,7 +4,7 @@ namespace PGK.WebApi.Models.Group
 {
     public class UpdateGroupModel
     {
-        [Required] public int Number { get; set; }
+        [Required] public string Number { get; set; }
         [Required] public int SpecialityId { get; set; }
         [Required] public int ClassroomTeacherId { get; set; }
         public int? HeadmanId { get; set; } = null;

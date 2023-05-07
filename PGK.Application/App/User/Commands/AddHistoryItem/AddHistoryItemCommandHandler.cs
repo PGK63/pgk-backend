@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PGK.Application.App.User.Queries.GetHistoryList;
 using PGK.Application.Common.Exceptions;
 using PGK.Application.Interfaces;
@@ -23,6 +24,14 @@ namespace PGK.Application.App.User.Commands.AddHistoryItem
             if(user == null)
             {
                 throw new NotFoundException(nameof(Domain.User.User), request.UserId);
+            }
+
+            var item = await _dbContext.Histories
+                .FirstOrDefaultAsync(u => u.Type == request.Type && u.ContentId == request.ContentId);
+
+            if (item != null)
+            {
+                _dbContext.Histories.Remove(item);
             }
 
             var historyItem = new Domain.User.History.History
