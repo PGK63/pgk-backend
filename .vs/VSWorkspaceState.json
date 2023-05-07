@@ -3,14 +3,15 @@
     "",
     "\\PGK.Application",
     "\\PGK.Application\\App",
-    "\\PGK.Application\\App\\VedomostAttendance",
-    "\\PGK.Application\\Security",
+    "\\PGK.Application\\App\\User",
+    "\\PGK.Application\\App\\User\\Commands",
+    "\\PGK.Application\\App\\User\\Commands\\UpdatePassword",
     "\\PGK.Domain",
     "\\PGK.Domain\\TechnicalSupport",
     "\\PGK.Persistence",
     "\\PGK.WebApi",
     "\\PGK.WebApi\\Controllers"
   ],
-  "SelectedNode": "\\PGK.Backend.sln",
+  "SelectedNode": "\\PGK.Application\\App\\User\\Commands\\UpdatePassword\\UpdatePasswordCommand.cs",
   "PreviewInSolutionExplorer": false
 }

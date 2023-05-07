@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using IronXL;
+using OfficeOpenXml;
 using PGK.Application.Interfaces;
 using PGK.Application.Common.Exceptions;
 using Constants = PGK.Application.Common.Constants;
@@ -58,31 +58,33 @@ public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAtte
 
         File.Copy($"{Constants.VACATIONVEDOMOST_ATTENDANCE_PATH}vedomost_pattern.xls", patch);
 
-        var wb = WorkBook.Load(patch);
-        var ws = wb.GetWorkSheet("Лист1");
-        ws.Rows[0].Columns[0].Value = $"Ведомость посещаемости гр. {group.Speciality.NameAbbreviation}-{group.Course}{group.Number} за {request.Month.GetNameValue()} {year}г.";;
-        ws.Rows[46].Columns[24].Value = students.Count().ToString();
-        ws.Rows[45].Columns[12].Value = getFIO(group.ClassroomTeacher);
-        ws.Rows[46].Columns[9].Value = getFIO(group.Department.DepartmentHead);
+        var fileInfo = new FileInfo(patch);
+        var package = new ExcelPackage(fileInfo);
+        var ws = package.Workbook.Worksheets["Лист1"];
+        
+        ws.Cells[1, 1].Value = $"Ведомость посещаемости гр. {group.Speciality.NameAbbreviation}-{group.Course}{group.Number} за {request.Month.GetNameValue()} {year}г.";;
+        ws.Cells[47, 29].Value = students.Count().ToString();
+        ws.Cells[46, 13].Value = getFIO(group.ClassroomTeacher);
+        ws.Cells[47, 10].Value = getFIO(group.Department.DepartmentHead);
 
         var countStatementsRow = rows.Where(u => u.Cause == RaportichkaCause.STATEMENTS).Sum(u => u.Hours);
         var countSicknessRow = rows.Where(u => u.Cause == RaportichkaCause.SICKNESS).Sum(u => u.Hours);
         var countAbsenteeismRow = rows.Where(u => u.Cause == RaportichkaCause.ABSENTEEISM).Sum(u => u.Hours);
         var countPrikazRow = rows.Where(u => u.Cause == RaportichkaCause.PRIKAZ).Sum(u => u.Hours);
 
-        ws.Rows[43].Columns[33].Value = countStatementsRow;
-        ws.Rows[43].Columns[34].Value = countSicknessRow;
-        ws.Rows[43].Columns[35].Value = countAbsenteeismRow;
-        ws.Rows[43].Columns[36].Value = countPrikazRow;
+        ws.Cells[44, 34].Value = countStatementsRow;
+        ws.Cells[44, 35].Value = countSicknessRow;
+        ws.Cells[44, 36].Value = countAbsenteeismRow;
+        ws.Cells[44, 37].Value = countPrikazRow;
 
         if (group.Headman != null)
         {
-            ws.Rows[44].Columns[13].Value = getFIO(group.Headman);
+            ws.Cells[45, 14].Value = getFIO(group.Headman);
         }
 
         foreach (var (student, index) in students.WithIndex())
         {
-            ws.Rows[index + 3].Columns[1].Value = getFIO(student);
+            ws.Cells[index + 4, 2].Value = getFIO(student);
             var studentRows = rows.Where(u => u.Student.Id == student.Id);
             var countStudentStatementsRow = studentRows.Where(u => u.Cause == RaportichkaCause.STATEMENTS).Sum(u => u.Hours);
             var countStudentSicknessRow = studentRows.Where(u => u.Cause == RaportichkaCause.SICKNESS).Sum(u => u.Hours);
@@ -91,22 +93,22 @@ public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAtte
 
             if(countStudentStatementsRow > 0)
             {
-                ws.Rows[index + 3].Columns[33].Value = countStudentStatementsRow;
+                ws.Cells[index + 4, 34].Value = countStudentStatementsRow;
             }
 
             if (countStudentSicknessRow > 0)
             {
-                ws.Rows[index + 3].Columns[34].Value = countStudentSicknessRow;
+                ws.Cells[index + 4, 35].Value = countStudentSicknessRow;
             }
 
             if (countStudentAbsenteeismRow > 0)
             {
-                ws.Rows[index + 3].Columns[35].Value = countStudentAbsenteeismRow;
+                ws.Cells[index + 4, 36].Value = countStudentAbsenteeismRow;
             }
 
             if (countStudentPrikazRow > 0)
             {
-                ws.Rows[index + 3].Columns[36].Value = countStudentPrikazRow;
+                ws.Cells[index + 4, 37].Value = countStudentPrikazRow;
             }
 
             for (int i = 1; i < countDays; i++)
@@ -117,7 +119,7 @@ public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAtte
                 
                 if(rowHorseCount > 0)
                 {
-                    ws.Rows[index + 3].Columns[i + 1].Value = rowHorseCount;
+                    ws.Cells[index + 4, i + 2].Value = rowHorseCount;
                 }
             }
         }
@@ -128,11 +130,11 @@ public class GetVedomostAttendanceQueryHandler : IRequestHandler<GetVedomostAtte
 
             if(sum > 0)
             {
-                ws.Rows[43].Columns[i + 1].Value = sum;
+                ws.Cells[44, i + 2].Value = sum;
             }
         }
 
-        wb.Save();
+        package.Save();
         
         return await File.ReadAllBytesAsync(patch, cancellationToken);
     }
